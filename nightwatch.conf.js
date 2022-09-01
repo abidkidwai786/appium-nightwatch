@@ -157,7 +157,7 @@ module.exports = {
       desiredCapabilities: {
         'lt:options': {
           username: '${LT_USERNAME}',
-          accessKey: '${LT__ACCESS_KEY}'
+          accessKey: '${LT_ACCESS_KEY}'
         }
       },
       disable_error_log: true,
@@ -181,7 +181,7 @@ module.exports = {
         deviceName: 'iPhone 13',
         isRealMobile: true,
         user: '${LT_USERNAME}',
-        accessKey: '${LT__ACCESS_KEY}',
+        accessKey: '${LT_ACCESS_KEY}',
         app: "lt://APP10160621161658226142499826" // path for the ios app you want to test
       }
     },
