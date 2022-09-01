@@ -23,7 +23,16 @@ $ git clone
 ```sh
 $ npm install
 ```
-5. Run the test
+5. To run on Lambdatest
+    // Please set the username and access key by setting the environment variables:  |
+    // - LT_USERNAME                                                           |
+    // - LT_ACCESS_KEY                                                           | 
+    // More info on configuring capabilities can be found on:
+    // https://www.lambdatest.com/capabilities-generator/  
+```sh
+$ npm install
+```
+6. Run the test
 ```sh
 $ npm test
 ```
@@ -31,13 +40,19 @@ $ npm test
 
 ## Configuration
 
-We can add in a test setting in nightwatch config for appium server and then can extend for various desired target-devices/desired-capabilites to run on:
+We can add in a test setting in nightwatch config for appium server and then can extend for various desired target-devices/desired-capabilites(https://www.lambdatest.com/capabilities-generator/  ) to run on:
 
 ```js
 'appium': {
       selenium: {
-        host: 'localhost',
-        port: 4723
+        host: 'mobile-hub.lambdatest.com/wd/hub',
+        port: 80
+      },
+      desiredCapabilities: {
+        'lt:options': {
+          username: '${LT_USERNAME}',
+          accessKey: '${LT__ACCESS_KEY}'
+        }
       },
       disable_error_log: true,
       webdriver: {
@@ -50,15 +65,18 @@ We can add in a test setting in nightwatch config for appium server and then can
       }
     },
     
-    'appium.ios': {
+    'appium.ios13': {
       extends: 'appium',
       desiredCapabilities: {
-        browserName: 'Safari',
+       // browserName: 'Safari',
         javascriptEnabled: true,
-        platformName: 'iOS',
+        platformName: 'ios',
         platformVersion: '15.0',
-        deviceName: 'iPhone 13'
-        // "app": APP_PATH + "ios/PieDrive.app", // path for the ios app you want to test
+        deviceName: 'iPhone 13',
+        isRealMobile: true,
+        user: '${LT_USERNAME}',
+        accessKey: '${LT__ACCESS_KEY}',
+        app: "lt://APP10160621161658226142499826" // path for the ios app you want to test
       }
     },
 ```

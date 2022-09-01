@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nightwatch --env appium.ios"
+    "test": "nightwatch --env appium.ios12,appium.ios13"
   },
-  "author": "Ravi Sawlani",
+  "author": "Mudassar Syed",
   "license": "ISC",
   "dependencies": {
     "nightwatch": "^2.0.0-alpha.4"
