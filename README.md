@@ -24,19 +24,68 @@ $ git clone
 $ npm install
 ```
 5. To run on Lambdatest
-    // Please set the username and access key by setting the environment variables:  |
-    // - LT_USERNAME                                                           |
-    // - LT_ACCESS_KEY                                                           | 
-    // More info on configuring capabilities can be found on:
-    // https://www.lambdatest.com/capabilities-generator/  
-```sh
-$ npm install
-```
-6. Run the test
-```sh
-$ npm test
+### Setting Up Your Authentication
+
+Make sure you have your LambdaTest credentials with you to run test automation scripts on LambdaTest. To obtain your access credentials, [purchase a plan](https://billing.lambdatest.com/billing/plans?utm_source=github&utm_medium=repo&utm_campaign=LT-appium-java) or access the [Automation Dashboard](https://appautomation.lambdatest.com/?utm_source=github&utm_medium=repo&utm_campaign=LT-appium-java).
+
+Set LambdaTest `Username` and `Access Key` in environment variables.
+
+**For Linux/macOS:**
+
+```js
+export LT_USERNAME="YOUR_LAMBDATEST_USERNAME" \
+export LT_ACCESS_KEY="YOUR_LAMBDATEST_ACCESS_KEY"
 ```
 
+**For Windows:**
+
+```js
+set LT_USERNAME="YOUR_LAMBDATEST_USERNAME" `
+set LT_ACCESS_KEY="YOUR_LAMBDATEST_ACCESS_KEY"
+```
+
+### Upload Your Application
+
+Upload your **_iOS_** application (.ipa file) or **_android_** application (.apk file) to the LambdaTest servers using our **REST API**. You need to provide your **Username** and **AccessKey** in the format `Username:AccessKey` in the **cURL** command for authentication. Make sure to add the path of the **appFile** in the cURL request. Here is an example cURL request to upload your app using our REST API:
+
+**Using App File:**
+
+**Linux/macOS:**
+
+```js
+curl -u "YOUR_LAMBDATEST_USERNAME:YOUR_LAMBDATEST_ACCESS_KEY" \
+--location --request POST 'https://manual-api.lambdatest.com/app/upload/realDevice' \
+--form 'name="Android_App"' \
+--form 'appFile=@"/Users/macuser/Downloads/proverbial_android.apk"'
+```
+
+**Windows:**
+
+```js
+curl -u "YOUR_LAMBDATEST_USERNAME:YOUR_LAMBDATEST_ACCESS_KEY" -X POST "https://manual-api.lambdatest.com/app/upload/realDevice" -F "appFile=@"/Users/macuser/Downloads/proverbial_android.apk""
+```
+
+**Using App URL:**
+
+**Linux/macOS:**
+
+```js
+curl -u "YOUR_LAMBDATEST_USERNAME:YOUR_LAMBDATEST_ACCESS_KEY" \
+--location --request POST 'https://manual-api.lambdatest.com/app/upload/realDevice' \
+--form 'name="Android_App"' \
+--form 'url="https://prod-mobile-artefacts.lambdatest.com/assets/docs/proverbial_android.apk"'
+```
+
+**Windows:**
+
+```js
+curl -u "YOUR_LAMBDATEST_USERNAME:YOUR_LAMBDATEST_ACCESS_KEY" -X POST "https://manual-api.lambdatest.com/app/upload/realDevice" -d "{"url":"https://prod-mobile-artefacts.lambdatest.com/assets/docs/proverbial_android.apk","name":"sample.apk"}"
+```
+
+**Tip:**
+
+- If you do not have any **.apk** or **.ipa** file, you can run your sample tests on LambdaTest by using our sample :link: [Android app](https://prod-mobile-artefacts.lambdatest.com/assets/docs/proverbial_android.apk) or sample :link: [iOS app](https://prod-mobile-artefacts.lambdatest.com/assets/docs/proverbial_ios.ipa).
+- Response of above cURL will be a **JSON** object containing the `App URL` of the format - <lt://APP123456789123456789> and will be used in the next step.
 
 ## Configuration
 
@@ -80,6 +129,13 @@ We can add in a test setting in nightwatch config for appium server and then can
       }
     },
 ```
+
+6. Run the test
+```sh
+$ npm test
+```
+
+
 
 ## Gestures
  Gestures are commonly used while interacting with mobile devices. We can use non-standard APIs commands to generate gestures which would be specific to platform, commands like ` browser.execute('mobile: swipe', args);` to stimulate a swipe in iOS-specific platform. The other option is to use Actions API from Nightwatch that is based on W3C Webdriver Spec. Actions API is very general and is platform independent. It relies on the concept of input sources(key, pointer, wheel). You can refer [W3C spec](https://www.w3.org/TR/webdriver/#actions) for more details. The example test shows a sample swipe and zoom in using actions API.
