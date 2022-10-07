@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nightwatch --env appium.ios12,appium.ios13"
+    "test": "nightwatch --env appium.ios12"
   },
   "author": "Mudassar Syed",
   "license": "ISC",
